@@ -8,5 +8,15 @@
     <string name="CalculateButton">Calculate</string>
     <string name="ClearButton">Clear</string>
     <string name="ModeButton">Mode</string>
-    <string name="title_activity_unit_settings">UnitSettingsActivity</string>
+    <string name="title_activity_unit_settings">Settings</string>
+    <string-array name="LengthUnits">
+        <item>Meters</item>
+        <item>Yards</item>
+        <item>Miles</item>
+    </string-array>
+    <string-array name="VolumeUnits">
+        <item>Liters</item>
+        <item>Gallons</item>
+        <item>Quarts</item>
+    </string-array>
 </resources>

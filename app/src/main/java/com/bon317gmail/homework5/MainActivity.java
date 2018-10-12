@@ -1,7 +1,13 @@
 package com.bon317gmail.homework5;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.support.v7.*;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,12 +19,24 @@ import static junit.framework.Assert.assertEquals;
 
 public class MainActivity extends AppCompatActivity {
 
-    int modeTracker = 0;
+    int modeTracker = 0;  // length units
+    static String[] choices;  // used with settings
+
+    // Adds xml file menu options.
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_actions, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);  // must be called before findView..
+
+        // Create the toolbar with settings option.
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         UnitsConverter calcConverter =  new UnitsConverter();
 
@@ -272,6 +290,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }  // onCreate ends
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                // Send mode
+                Intent i = new Intent(MainActivity.this, UnitSettingsActivity.class);
+                i.putExtra("mode", modeTracker);
+                startActivity(i);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     // Hide keyboard when a button is pressed.
     // https://stackoverflow.com/questions/4165414/how-to-hide-soft-
