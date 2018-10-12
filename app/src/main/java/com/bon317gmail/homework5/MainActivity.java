@@ -296,14 +296,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        EditText fromUnit = (EditText) findViewById(R.id.editText);
-        EditText toUnit = (EditText) findViewById(R.id.editText2);
+        //EditText fromUnit = (EditText) findViewById(R.id.editText);
+        //EditText toUnit = (EditText) findViewById(R.id.editText2);
+        TextView fromLabel = (TextView) findViewById(R.id.textView2);
+        TextView toLabel = (TextView) findViewById(R.id.textView4);
 
         if (resultCode == 1) {
             //textView tv = (textView) findViewById(R.id.)
             choices = data.getStringArrayListExtra("choices");
-            fromUnit.setText(choices.get(0));
-            toUnit.setText(choices.get(1));
+            fromLabel.setText(choices.get(0));
+            toLabel.setText(choices.get(1));
         }
     }
 
@@ -315,9 +317,8 @@ public class MainActivity extends AppCompatActivity {
                 // Send mode
                 Intent i = new Intent(MainActivity.this, UnitSettingsActivity.class);
                 i.putExtra("mode", modeTracker);
-                startActivity(i);
+                startActivityForResult(i, 1);
                 return true;
-
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
