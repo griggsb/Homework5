@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.*;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,9 +13,7 @@ import android.widget.TextView;
 import android.view.inputmethod.InputMethodManager;  // handle keyboard close on click event
 import android.app.Activity;  // use with keyboard hide function
 import com.bon317gmail.homework5.UnitsConverter;
-
 import java.util.ArrayList;
-
 import static junit.framework.Assert.assertEquals;
 
 
@@ -25,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     int modeTracker = 0;  // length units
     static ArrayList<String> choices;  // used with settings
 
-    // Adds xml file menu options.
+    // Adds xml file defined menu drop down options.
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_actions, menu);
@@ -296,16 +293,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //EditText fromUnit = (EditText) findViewById(R.id.editText);
-        //EditText toUnit = (EditText) findViewById(R.id.editText2);
         TextView fromLabel = (TextView) findViewById(R.id.textView2);
         TextView toLabel = (TextView) findViewById(R.id.textView4);
 
         if (resultCode == 1) {
-            //textView tv = (textView) findViewById(R.id.)
-            choices = data.getStringArrayListExtra("choices");
-            fromLabel.setText(choices.get(0));
-            toLabel.setText(choices.get(1));
+            if (data.hasExtra("choices")) {  // check if sent data back
+                choices = data.getStringArrayListExtra("choices");
+                if (choices.size() == 2) {
+                    fromLabel.setText(choices.get(0));
+                    toLabel.setText(choices.get(1));
+                }
+            }
         }
     }
 
