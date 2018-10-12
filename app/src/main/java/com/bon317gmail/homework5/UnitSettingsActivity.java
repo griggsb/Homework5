@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+
 public class UnitSettingsActivity extends AppCompatActivity {
 
     private String fromSelection = "";
@@ -23,6 +25,11 @@ public class UnitSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_unit_settings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent payload = getIntent();
+        if (payload.hasExtra("mode")) {
+            mode = payload.getIntExtra("mode", -1);
+        }
 
         // Choose the spinner unit choices based on the mode.
         Spinner fromSpinner = (Spinner) findViewById(R.id.from_spinner);
@@ -44,20 +51,24 @@ public class UnitSettingsActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+
+        @Override
+        public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
 
-                if (fromSelection.length() != 0 && toSelection.length() != 0) {
-                    Intent intent = new Intent();
-                    intent.putExtra("choices", new String[]{fromSelection, toSelection});
-                    setResult(1, intent);
-                    finish();
-                } else {
-                    // print must select both message
-                }
+            if (fromSelection.length() != 0 && toSelection.length() != 0) {
+                Intent intent = new Intent();
+                ArrayList<String> al = new ArrayList<String>(2);
+                al.add(fromSelection);
+                al.add(toSelection);
+                intent.putExtra("choices", al);
+                setResult(1, intent);
+                finish();
+            } else {
+                // print must select both message
             }
+        }
         });
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

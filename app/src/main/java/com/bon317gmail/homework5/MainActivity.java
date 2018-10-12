@@ -14,13 +14,16 @@ import android.widget.TextView;
 import android.view.inputmethod.InputMethodManager;  // handle keyboard close on click event
 import android.app.Activity;  // use with keyboard hide function
 import com.bon317gmail.homework5.UnitsConverter;
+
+import java.util.ArrayList;
+
 import static junit.framework.Assert.assertEquals;
 
 
 public class MainActivity extends AppCompatActivity {
 
     int modeTracker = 0;  // length units
-    static String[] choices;  // used with settings
+    static ArrayList<String> choices;  // used with settings
 
     // Adds xml file menu options.
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -290,6 +293,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }  // onCreate ends
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        EditText fromUnit = (EditText) findViewById(R.id.editText);
+        EditText toUnit = (EditText) findViewById(R.id.editText2);
+
+        if (resultCode == 1) {
+            //textView tv = (textView) findViewById(R.id.)
+            choices = data.getStringArrayListExtra("choices");
+            fromUnit.setText(choices.get(0));
+            toUnit.setText(choices.get(1));
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
