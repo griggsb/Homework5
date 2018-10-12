@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Conversion Calculator</string>
+    <string name="From">From</string>
+    <string name="To">To</string>
+    <string name="Title">Length Conversion Calculator</string>
+    <string name="ToUnit">Yards</string>
+    <string name="FromUnit">Meters</string>
+    <string name="CalculateButton">Calculate</string>
+    <string name="ClearButton">Clear</string>
+    <string name="ModeButton">Mode</string>
+    <string name="title_activity_unit_settings">UnitSettingsActivity</string>
+</resources>

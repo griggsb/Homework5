@@ -5,13 +5,14 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.bon317gmail.homework5.UnitsConverter;
-
 import static junit.framework.Assert.assertEquals;
 
+
 public class MainActivity extends AppCompatActivity {
+
     int modeTracker = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
