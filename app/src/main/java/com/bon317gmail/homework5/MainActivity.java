@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.view.inputmethod.InputMethodManager;  // handle keyboard close on click event
+import android.app.Activity;  // use with keyboard hide function
 import com.bon317gmail.homework5.UnitsConverter;
 import static junit.framework.Assert.assertEquals;
 
@@ -16,10 +18,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);  // must be called before findView..
 
         UnitsConverter calcConverter =  new UnitsConverter();
 
+        // References to UI widgets:
+        // all return view objects, so casting needed
         TextView title = (TextView) findViewById(R.id.Title);
         TextView fromLabel = (TextView) findViewById(R.id.textView2);
         TextView toLabel = (TextView) findViewById(R.id.textView4);
@@ -30,14 +34,18 @@ public class MainActivity extends AppCompatActivity {
         Button mode = (Button) findViewById(R.id.button3);
 
         calculate.setOnClickListener(v -> {
+            hideSoftKeyboard(this);  // Close the keyboard
+
             if(modeTracker==0) {
                 String fromUnitStr = fromUnit.getText().toString();
                 String toUnitStr = toUnit.getText().toString();
+
                 if (fromUnitStr.length() != 0 && toUnitStr.length() != 0) {
                     toUnit.setText("");
                     fromUnit.setText("");
                     return;
                 }
+
                 UnitsConverter.LengthUnits Meters = UnitsConverter.LengthUnits.Meters;
                 UnitsConverter.LengthUnits Yards = UnitsConverter.LengthUnits.Yards;
                 UnitsConverter.LengthUnits Miles = UnitsConverter.LengthUnits.Miles;
@@ -216,11 +224,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
         clear.setOnClickListener(v -> {
+            hideSoftKeyboard(this);  // Close the keyboard
             fromUnit.setText("");
             toUnit.setText("");
         });
+
         mode.setOnClickListener(v -> {
+            hideSoftKeyboard(this);  // Close the keyboard
             if(modeTracker==0){
                 fromLabel.setText("Gallons");
                 toLabel.setText("Liters");
@@ -236,7 +248,39 @@ public class MainActivity extends AppCompatActivity {
                 title.setText("Length Conversion Calculator");
                 modeTracker = 0;
             }
-
         });
+
+        // Focus in one of the two text fields clears the other immediately.
+        // Also clear old values when focusing.
+        fromUnit.setOnFocusChangeListener((v, f) -> {
+            String toUnitStr = toUnit.getText().toString();
+            if (f) {  // if has focus
+                fromUnit.setText("");  // clear old value
+                if (toUnitStr.length() != 0) {
+                    toUnit.setText("");  // clear other field
+                }
+            }
+        });
+
+        toUnit.setOnFocusChangeListener((v, f) -> {
+            String fromUnitStr = fromUnit.getText().toString();
+            if (f) {  // if has focus
+                toUnit.setText("");  // clear old value
+                if (fromUnitStr.length() != 0) {
+                    fromUnit.setText("");  // clear other field
+                }
+            }
+        });
+    }  // onCreate ends
+
+    // Hide keyboard when a button is pressed.
+    // https://stackoverflow.com/questions/4165414/how-to-hide-soft-
+    // keyboard-on-android-after-clicking-outside-edittext
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
     }
 }
