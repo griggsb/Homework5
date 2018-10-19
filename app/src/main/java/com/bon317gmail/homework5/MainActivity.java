@@ -72,44 +72,44 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Double fromUnitNum = 0.0;
                 double result = 0;
-                    if (toUnitStr.length() == 0) {
-                        fromUnitNum = Double.parseDouble(fromUnitStr);
-                        if (fromLabel.getText().toString().equalsIgnoreCase(Meters.name())) {
-                            if (toLabel.getText().toString().equalsIgnoreCase(Meters.name())) {
-                                result = UnitsConverter.convert(fromUnitNum, Meters, Meters);
-                            }
-                            if (toLabel.getText().toString().equalsIgnoreCase(Yards.name())) {
-                                result = UnitsConverter.convert(fromUnitNum, Meters, Yards);
-                            }
-                            if (toLabel.getText().toString().equalsIgnoreCase(Miles.name())) {
-                                result = UnitsConverter.convert(fromUnitNum, Meters, Miles);
-                            }
+                if (toUnitStr.length() == 0) {
+                    fromUnitNum = Double.parseDouble(fromUnitStr);
+                    if (fromLabel.getText().toString().equalsIgnoreCase(Meters.name())) {
+                        if (toLabel.getText().toString().equalsIgnoreCase(Meters.name())) {
+                            result = UnitsConverter.convert(fromUnitNum, Meters, Meters);
                         }
-                        if (fromUnitStr.equalsIgnoreCase(Yards.name())) {
-                            if (toLabel.getText().toString().equalsIgnoreCase(Meters.name())) {
-                                result = UnitsConverter.convert(fromUnitNum, Yards, Meters);
-                            }
-                            if (toLabel.getText().toString().equalsIgnoreCase(Yards.name())) {
-                                result = UnitsConverter.convert(fromUnitNum, Yards, Yards);
-                            }
-                            if (toLabel.getText().toString().equalsIgnoreCase(Miles.name())) {
-                                result = UnitsConverter.convert(fromUnitNum, Yards, Miles);
-                            }
+                        if (toLabel.getText().toString().equalsIgnoreCase(Yards.name())) {
+                            result = UnitsConverter.convert(fromUnitNum, Meters, Yards);
                         }
-                        if (fromLabel.getText().toString().equalsIgnoreCase(Miles.name())) {
-                            if (toLabel.getText().toString().equalsIgnoreCase(Meters.name())) {
-                                result = UnitsConverter.convert(fromUnitNum, Miles, Meters);
-                            }
-                            if (toLabel.getText().toString().equalsIgnoreCase(Yards.name())) {
-                                result = UnitsConverter.convert(fromUnitNum, Miles, Yards);
-                            }
-                            if (toLabel.getText().toString().equalsIgnoreCase(Miles.name())) {
-                                result = UnitsConverter.convert(fromUnitNum, Miles, Miles);
-                            }
+                        if (toLabel.getText().toString().equalsIgnoreCase(Miles.name())) {
+                            result = UnitsConverter.convert(fromUnitNum, Meters, Miles);
                         }
-                        toUnit.setText(Double.toString(result));
-                        return;
                     }
+                    if (fromUnitStr.equalsIgnoreCase(Yards.name())) {
+                        if (toLabel.getText().toString().equalsIgnoreCase(Meters.name())) {
+                            result = UnitsConverter.convert(fromUnitNum, Yards, Meters);
+                        }
+                        if (toLabel.getText().toString().equalsIgnoreCase(Yards.name())) {
+                            result = UnitsConverter.convert(fromUnitNum, Yards, Yards);
+                        }
+                        if (toLabel.getText().toString().equalsIgnoreCase(Miles.name())) {
+                            result = UnitsConverter.convert(fromUnitNum, Yards, Miles);
+                        }
+                    }
+                    if (fromLabel.getText().toString().equalsIgnoreCase(Miles.name())) {
+                        if (toLabel.getText().toString().equalsIgnoreCase(Meters.name())) {
+                            result = UnitsConverter.convert(fromUnitNum, Miles, Meters);
+                        }
+                        if (toLabel.getText().toString().equalsIgnoreCase(Yards.name())) {
+                            result = UnitsConverter.convert(fromUnitNum, Miles, Yards);
+                        }
+                        if (toLabel.getText().toString().equalsIgnoreCase(Miles.name())) {
+                            result = UnitsConverter.convert(fromUnitNum, Miles, Miles);
+                        }
+                    }
+                    toUnit.setText(Double.toString(result));
+                    return;
+                }
                 Double toUnitNum = Double.parseDouble(toUnitStr);
                 if (fromUnitStr.length() == 0) {
                     if (toLabel.getText().toString().equalsIgnoreCase(Meters.name())) {
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     fromUnit.setText(Double.toString(result));
                     return;
                 }
-            }else{
+            }else{  // volume
                 String fromUnitStr = fromUnit.getText().toString();
                 String toUnitStr = toUnit.getText().toString();
                 if (fromUnitStr.length() != 0 && toUnitStr.length() != 0) {
